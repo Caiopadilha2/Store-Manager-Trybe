@@ -14,7 +14,13 @@ const getById = async (id) => {
   return product;
 };
 
+const exclude = async (id) => {
+  const query = 'DELETE FROM StoreManager.products WHERE id = ?';
+  await connection.execute(query, [id]);
+};
+
 module.exports = {
   getAll,
   getById,
+  exclude,
 };
