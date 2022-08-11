@@ -1,8 +1,8 @@
-const productsModel = require('../models/products');
+const productsService = require('../services/products');
 
 const listAll = async (_req, res, next) => {
   try {
-    const products = await productsModel.getAll();
+    const products = await productsService.getAll();
 
     res.status(200).json(products);
   } catch (e) {
@@ -13,13 +13,12 @@ const listAll = async (_req, res, next) => {
 const getById = async (req, res, next) => {
   try {
     const { id } = req.params;
-  
-    const product = await productsModel.getById(id);
+    const product = await productsService.getById(id);
 
-    if (!product.length) {
+    if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    return res.status(200).json(product[0]);
+    return res.status(200).json(product);
   } catch (e) {
     next(e);
   }
@@ -28,11 +27,11 @@ const getById = async (req, res, next) => {
 const exclude = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const product = await productsModel.getById(id);
-    if (!product.length) {
+    const product = await productsService.getById(id);
+    if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
-    await productsModel.exclude(id);
+    await productsService.exclude(id);
     return res.status(204).end();
   } catch (e) {
     next(e);
