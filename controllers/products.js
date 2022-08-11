@@ -24,6 +24,17 @@ const getById = async (req, res, next) => {
   }
 };
 
+const addProduct = async (req, res, next) => {
+  try {
+    const { name } = req.body;
+    const created = await productsService.addNewProduct({ name });
+  
+    return res.status(201).json(created);
+  } catch (e) {
+    next(e);
+  }
+};
+
 const exclude = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -42,4 +53,5 @@ module.exports = {
   listAll,
   getById,
   exclude,
+  addProduct,
 };

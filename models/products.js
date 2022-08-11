@@ -20,8 +20,8 @@ const exclude = async (id) => {
 };
 
 const addProduct = async (product) => {
-  const query = 'INSERT INTO StoreManager.products (name, quantity) VALUES (?, ?)';
-  const [result] = await connection.execute(query, [product.name, product.quantity]);
+  const query = 'INSERT INTO StoreManager.products (name) VALUES (?)';
+  const [result] = await connection.execute(query, [product.name]);
   return {
     id: result.insertId,
     ...product,
