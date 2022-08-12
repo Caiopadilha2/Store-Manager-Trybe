@@ -14,21 +14,22 @@ const addNewProduct = async (name) => {
 };
 
 const update = async (product) => {
-  // const findProduct = getById(product.id);
-  // if (!findProduct) {
-  //   return {
-  //     code: 404,
-  //     message: 'Product not found',
-  //   };
-  // }
-  const updated = await productsModel.update(product);
-
-  if (!updated) {
+  const findProduct = await getById(product.id);
+  if (!findProduct) {
     return {
       code: 404,
       message: 'Product not found',
     };
   }
+  const updated = await productsModel.update(product);
+
+  // if (!updated) {
+  //   return {
+  //     code: 404,
+  //     message: 'Product not found',
+  //   };
+  // }
+  // Também funciona, mas era lógica do professor na aula ao vivo. É mais performática, mas preferi usar a minha.
   return updated;
 };
 
