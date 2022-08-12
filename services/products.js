@@ -9,7 +9,27 @@ const getById = async (id) => {
 
 const addNewProduct = async (name) => {
   const newProduct = await productsModel.addProduct(name);
+  
   return newProduct;
+};
+
+const update = async (product) => {
+  // const findProduct = getById(product.id);
+  // if (!findProduct) {
+  //   return {
+  //     code: 404,
+  //     message: 'Product not found',
+  //   };
+  // }
+  const updated = await productsModel.update(product);
+
+  if (!updated) {
+    return {
+      code: 404,
+      message: 'Product not found',
+    };
+  }
+  return updated;
 };
 
 const exclude = async (id) => {
@@ -21,4 +41,5 @@ module.exports = {
   getById,
   exclude,
   addNewProduct,
+  update,
 };

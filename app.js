@@ -1,6 +1,6 @@
 const express = require('express');
 const productsController = require('./controllers/products');
-// const validateName = require('./middlewares/validateName');
+const { validateName } = require('./middlewares/validateName');
 
 const app = express();
 app.use(express.json());
@@ -14,7 +14,9 @@ app.get('/products', productsController.listAll);
 
 app.get('/products/:id', productsController.getById);
 
-app.post('/products', productsController.addProduct);
+app.post('/products', validateName, productsController.addProduct);
+
+app.put('/products/:id', validateName, productsController.update);
 
 app.delete('/products/:id', productsController.exclude);
 

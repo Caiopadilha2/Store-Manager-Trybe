@@ -28,16 +28,26 @@ const addProduct = async (req, res, next) => {
   try {
     const { name } = req.body;
 
-    if (!name) {
-      return res.status(400).json({ message: '"name" is required' });
-    }
-    if (name.length < 5) {
-      return res.status(422).json({ message: '"name" length must be at least 5 characters long' });
-    }
-
     const created = await productsService.addNewProduct({ name });
 
     return res.status(201).json(created);
+  } catch (e) {
+    next(e);
+  }
+};
+
+const update = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { name } = req.body;
+
+    const updated = await productsService.update({ id, name });
+
+    if (updated.code) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+
+    return res.status(200).json(updated);
   } catch (e) {
     next(e);
   }
@@ -62,4 +72,5 @@ module.exports = {
   getById,
   exclude,
   addProduct,
+  update,
 };
