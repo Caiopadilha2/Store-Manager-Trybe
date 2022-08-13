@@ -1,5 +1,6 @@
 const express = require('express');
 const productsController = require('./controllers/products');
+const salesController = require('./controllers/sales');
 const { validateName } = require('./middlewares/validateName');
 
 const app = express();
@@ -11,6 +12,7 @@ app.get('/', (_request, response) => {
 });
 
 app.get('/products', productsController.listAll);
+app.get('/sales', salesController.listAll);
 
 app.get('/products/:id', productsController.getById);
 
