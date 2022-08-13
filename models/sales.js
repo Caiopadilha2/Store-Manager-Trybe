@@ -22,6 +22,24 @@ ORDER BY
   return sales;
 };
 
+const getById = async (id) => {
+  const query = `SELECT s.date AS date,
+    sp.product_id AS productId,
+    sp.quantity AS quantity
+FROM
+  sales AS s
+JOIN
+  sales_products AS sp
+ON
+  id = sale_id
+WHERE
+  id = ?`;
+  const [product] = await connection.execute(query, [id]);
+ 
+  return product;
+};
+
 module.exports = {
   getAll,
+  getById,
 };
