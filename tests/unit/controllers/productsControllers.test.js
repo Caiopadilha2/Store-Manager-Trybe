@@ -11,32 +11,30 @@ describe("Testa service products", () => {
   it('Ao listar todos os produtos, retorna array vazio', async () => {
     const request = {};
     const response = {};
+
     response.status = sinon.stub().returns(response);
     response.json = sinon.stub().returns();
-    const result = [];  
-    sinon.stub(productsService, 'getAll').resolves(result)
+
+    const resultExecute = [];  
+    sinon.stub(productsService, 'getAll').resolves(resultExecute)
 
     await productsController.listAll(request, response);
 
     expect(response.status.calledWith(200)).to.be.equal(true);
   });
 
-  //   it('Ao listar todos os produtos, retorna array cheio', async () => {
-  //   const result = [{ id: 1, name: "martelo"}];  
-  //   sinon.stub(productsModel, 'getAll').resolves(result)
+  it('Ao listar todos os produtos, retorna array vazio', async () => {
+  const request = {};
+  const response = {};
 
-  //   const resultado = await productsService.getAll();
+  response.status = sinon.stub().returns(response);
+  response.json = sinon.stub().returns();
 
-  //   expect(resultado).to.be.not.empty;
-  //   });
-  
-  //     it('Ao listar todos os produtos, retorna array contendo objetos', async () => {
-  //   const result = [{ id: 1, name: "martelo"}];  
-  //   sinon.stub(productsModel, 'getAll').resolves(result)
+  const resultExecute = [];  
+  sinon.stub(productsService, 'getAll').resolves(resultExecute)
 
-  //   const [resultado] = await productsService.getAll();
+  await productsController.listAll(request, response);
 
-  //       expect(resultado).to.be.an('object');
-  //       expect(resultado).to.have.all.keys('id', 'name');
-  // });
+  expect(response.json.calledWith([])).to.be.equal(true);
+  });
 })
