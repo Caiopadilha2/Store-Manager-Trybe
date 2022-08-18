@@ -28,7 +28,7 @@ const exclude = async (req, res, next) => {
   try {
     const { id } = req.params;
     const sale = await salesService.getById(id);
-    if (!sale) {
+    if (!sale.length) {
       return res.status(404).json({ message: 'Sale not found' });
     }
     await salesService.exclude(id);
