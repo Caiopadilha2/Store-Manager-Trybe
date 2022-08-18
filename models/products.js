@@ -39,10 +39,16 @@ const addProduct = async (product) => {
   };
 };
 
+const searchProduct = async (name) => {
+  const query = 'SELECT * FROM StoreManager.products where name = ?';
+  await connection.execute(query, [name]);
+};
+
 module.exports = {
   getAll,
   getById,
   exclude,
   addProduct,
   update,
+  searchProduct,
 };
