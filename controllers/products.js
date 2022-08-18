@@ -67,10 +67,26 @@ const exclude = async (req, res, next) => {
   }
 };
 
+const searchProduct = async (req, res, next) => {
+  try {
+    const { q: search } = req.query;
+    const allProducts = await productsService.getAll();
+    // console.log(allProducts); Era uma promise, esqueci do await.
+    const filteredProducts = allProducts.filter((product) => product.name.includes(search));
+    if (!search) {
+      return res.status(200).json(allProducts);
+    }
+    return res.status(200).json(filteredProducts);
+  } catch (e) {
+    next(e);    
+  }
+};
+
 module.exports = {
   listAll,
   getById,
   exclude,
   addProduct,
   update,
+  searchProduct,
 };
