@@ -39,7 +39,13 @@ WHERE
   return product;
 };
 
+const exclude = async (id) => {
+  const query = 'DELETE FROM StoreManager.sales WHERE id = ?';
+  await connection.execute(query, [id]);
+};
+
 module.exports = {
   getAll,
   getById,
+  exclude,
 };
