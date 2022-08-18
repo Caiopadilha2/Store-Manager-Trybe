@@ -37,10 +37,15 @@ const exclude = async (id) => {
   await productsModel.exclude(id);
 };
 
+const searchProduct = async (name) => {
+  await productsModel.searchProduct(name);
+};
+
 module.exports = {
   getAll,
   getById,
   exclude,
   addNewProduct,
   update,
+  searchProduct,
 };
